@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:note_app_latest/models/note.dart';
+import 'package:note_app_latest/screens/Homepage.dart';
 
 class Dialog_box extends StatefulWidget {
   Dialog_box({Key? key}) : super(key: key);
@@ -8,13 +11,71 @@ class Dialog_box extends StatefulWidget {
 }
 
 class _Dialog_boxState extends State<Dialog_box> {
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final notesbox = Hive.box("notes");
+  notes note1 =
+      notes(title: "Sample Note", description: "This is a sample note");
   @override
   Widget build(BuildContext context) {
+    final TextEditingController Note_title = TextEditingController();
+    final TextEditingController Note_description = TextEditingController();
+
     return Container(
-      child: AlertDialog(
-        title: Text("Edit"),
-        //  content: Form(child: Bu,),
+        child: AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
-    );
+      title: Text("Edit"),
+      content: Form(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: Note_title,
+              validator: (value) {
+                return value!.isNotEmpty ? null : "INVALID FIELD";
+              },
+              decoration: InputDecoration(hintText: "Enter title of the note"),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            TextFormField(
+              controller: Note_description,
+              validator: (value) {
+                return value!.isNotEmpty ? null : "INVALID FIELD";
+              },
+              decoration:
+                  InputDecoration(hintText: "Enter description of note"),
+            ),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+            onPressed: () => {
+                  setState(() {
+                    if (true) {
+                      notes n1 = notes(
+                          title: Note_title.text,
+                          description: Note_description.text);
+                      notesbox.add(n1);
+                      //Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const MyHomePage()));
+                    }
+                  })
+                },
+            child: Text("ADD")),
+        TextButton(
+            onPressed: (() {
+              Navigator.pop(context);
+            }),
+            child: Text("CANCEL"))
+      ],
+    ));
   }
 }
