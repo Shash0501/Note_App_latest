@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:note_app_latest/models/note.dart';
 import 'package:note_app_latest/screens/Homepage.dart';
+import 'package:note_app_latest/providers/note_tile.dart';
+import 'package:provider/provider.dart';
 
 class Dialog_box extends StatefulWidget {
   Dialog_box({Key? key}) : super(key: key);
@@ -20,62 +22,66 @@ class _Dialog_boxState extends State<Dialog_box> {
     final TextEditingController Note_title = TextEditingController();
     final TextEditingController Note_description = TextEditingController();
 
-    return Container(
-        child: AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      ),
-      title: Text("Edit"),
-      content: Form(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              controller: Note_title,
-              validator: (value) {
-                return value!.isNotEmpty ? null : "INVALID FIELD";
-              },
-              decoration: InputDecoration(hintText: "Enter title of the note"),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            TextFormField(
-              controller: Note_description,
-              validator: (value) {
-                return value!.isNotEmpty ? null : "INVALID FIELD";
-              },
-              decoration:
-                  InputDecoration(hintText: "Enter description of note"),
-            ),
-          ],
+    return Consumer<Note_tile>(builder: (context, data, _) {
+      return Container(
+          child: AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
-      ),
-      actions: <Widget>[
-        TextButton(
-            onPressed: () => {
-                  setState(() {
-                    if (true) {
-                      notes n1 = notes(
-                          title: Note_title.text,
-                          description: Note_description.text);
-                      notesbox.add(n1);
-                      //Navigator.pop(context);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const MyHomePage()));
-                    }
-                  })
+        title: Text("Edit"),
+        content: Form(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: Note_title,
+                validator: (value) {
+                  return value!.isNotEmpty ? null : "INVALID FIELD";
                 },
-            child: Text("ADD")),
-        TextButton(
-            onPressed: (() {
-              Navigator.pop(context);
-            }),
-            child: Text("CANCEL"))
-      ],
-    ));
+                decoration:
+                    InputDecoration(hintText: "Enter title of the note"),
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              TextFormField(
+                controller: Note_description,
+                validator: (value) {
+                  return value!.isNotEmpty ? null : "INVALID FIELD";
+                },
+                decoration:
+                    InputDecoration(hintText: "Enter description of note"),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+              onPressed: () => {
+                    setState(() {
+                      if (true) {
+                        notes n1 = notes(
+                            title: Note_title.text,
+                            description: Note_description.text);
+                        notesbox.add(n1);
+                        data.add_note();
+                        Navigator.pop(context);
+                        // Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (BuildContext context) =>
+                        //             const MyHomePage()));
+                      }
+                    })
+                  },
+              child: Text("ADD")),
+          TextButton(
+              onPressed: (() {
+                Navigator.pop(context);
+              }),
+              child: Text("CANCEL"))
+        ],
+      ));
+    });
   }
 }

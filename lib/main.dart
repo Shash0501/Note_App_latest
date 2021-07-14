@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 //import hive
+
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:note_app_latest/models/note.dart';
+import 'package:note_app_latest/providers/note_tile.dart';
 //import path_provider as path_provider
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:note_app_latest/screens/Homepage.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +19,12 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(notesAdapter());
   await Hive.openBox("notes");
-  runApp(MaterialApp(
-    home: MyHomePage(),
-    theme: ThemeData(brightness: Brightness.dark),
+  runApp(ChangeNotifierProvider(
+    create: (context) => Note_tile(),
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
+      theme: ThemeData(brightness: Brightness.dark),
+    ),
   ));
 }
