@@ -17,8 +17,12 @@ void main() async {
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
   await Hive.initFlutter();
+  //Hive.registerAdapter(todosAdapter());
   Hive.registerAdapter(notesAdapter());
+
   await Hive.openBox("notes");
+  //await Hive.openBox("todo");
+
   runApp(ChangeNotifierProvider(
     create: (context) => Note_tile(),
     child: MaterialApp(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:note_app_latest/providers/note_tile.dart';
 import 'package:note_app_latest/models/note.dart';
+import 'package:note_app_latest/screens/Note_Screen.dart';
 import 'package:provider/provider.dart';
 
 class note_tile extends StatefulWidget {
@@ -41,7 +42,7 @@ class _note_tileState extends State<note_tile> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -64,7 +65,8 @@ class _note_tileState extends State<note_tile> {
                 Expanded(
                   flex: 3,
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
                           onPressed: () {
@@ -75,6 +77,19 @@ class _note_tileState extends State<note_tile> {
                         IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => note_screen(
+                                      title: note1.title,
+                                      description: note1.description,
+                                      date: note1.date)),
+                            );
+                          },
+                          icon: Icon(Icons.open_in_new_sharp),
                         ),
                       ]),
                 ),
