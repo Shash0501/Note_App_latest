@@ -66,11 +66,6 @@ class _Dialog_boxState extends State<Dialog_box> {
                         notesbox.add(n1);
                         data.add_note();
                         Navigator.pop(context);
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (BuildContext context) =>
-                        //             const MyHomePage()));
                       }
                     })
                   },

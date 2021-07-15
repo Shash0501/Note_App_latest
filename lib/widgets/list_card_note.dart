@@ -17,9 +17,12 @@ class _note_tileState extends State<note_tile> {
   late notes note1;
   late int index;
   _note_tileState({required this.note1, required this.index});
-
   @override
   Widget build(BuildContext context) {
+    String temp = (note1.description.length > 25)
+        ? note1.description.substring(0, 25) + '...'
+        : note1.description;
+
     return Consumer<Note_tile>(builder: (context, data, _) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -50,7 +53,10 @@ class _note_tileState extends State<note_tile> {
                           fontSize: 22.0,
                         ),
                       ),
-                      Text("${note1.description}"),
+                      Text("${temp}"),
+                      SizedBox(
+                        height: 2.0,
+                      ),
                       Text("${note1.date}"),
                     ],
                   ),
