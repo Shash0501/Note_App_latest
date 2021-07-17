@@ -10,10 +10,16 @@ class Note_tile extends ChangeNotifier {
     notifyListeners();
   }
 
+//int index, notes note
   void edit_note(int index, notes note) {
     notesbox.putAt(index, note);
     notifyListeners();
   }
+
+  // void note_todo(int index, notes note) {
+  //   notesbox.putAt(index, note);
+  //   notifyListeners();
+  // }
 
   void delete_note(index) {
     notesbox.deleteAt(index);

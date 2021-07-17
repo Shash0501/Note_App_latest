@@ -8,23 +8,24 @@ import 'package:provider/provider.dart';
 import 'edit_note_dialog_box.dart';
 
 class todo_tile extends StatefulWidget {
-  late todos note1;
+  late todos todo1;
   late int index;
-  todo_tile({required this.note1, required this.index});
+  todo_tile({required this.todo1, required this.index});
 
   @override
-  _todo_tileState createState() => _todo_tileState(note1: note1, index: index);
+  _todo_tileState createState() => _todo_tileState(todo1: todo1, index: index);
 }
 
 class _todo_tileState extends State<todo_tile> {
-  late todos note1;
+  late todos todo1;
   late int index;
-  _todo_tileState({required this.note1, required this.index});
+  final todosbox = Hive.box("todos");
+  _todo_tileState({required this.todo1, required this.index});
   @override
   Widget build(BuildContext context) {
-    String temp = (note1.description.length > 25)
-        ? note1.description.substring(0, 25) + '...'
-        : note1.description;
+    String temp = (todo1.description.length > 25)
+        ? todo1.description.substring(0, 25) + '...'
+        : todo1.description;
 
     return Consumer<Todo_tile>(builder: (context, data, _) {
       return Padding(
@@ -32,7 +33,7 @@ class _todo_tileState extends State<todo_tile> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.indigo, Colors.blue],
+              colors: [Colors.orangeAccent, Colors.deepOrangeAccent],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -51,27 +52,29 @@ class _todo_tileState extends State<todo_tile> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => note_screen(
-                                title: note1.title,
-                                description: note1.description,
-                                date: note1.date)),
+                                title: todo1.title,
+                                description: todo1.description,
+                                date: todo1.date)),
                       );
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${note1.title}",
+                          "${todo1.title}",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 22.0,
                           ),
                         ),
-                        Text("${temp}"),
+                        Text(temp, style: TextStyle(color: Colors.black)),
                         SizedBox(
                           height: 2.0,
                         ),
-                        Text("${note1.date}"),
+                        Text("${todo1.date}",
+                            style: TextStyle(color: Colors.black)),
+                        //Text("${todo1.status}"),
                       ],
                     ),
                   ),
@@ -82,21 +85,33 @@ class _todo_tileState extends State<todo_tile> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            data.delete_note(index);
-                          },
-                          icon: Icon(Icons.delete),
+                        CircleAvatar(
+                          radius: 20.0,
+                          child: IconButton(
+                            onPressed: () {
+                              data.delete_note(index);
+                            },
+                            icon: Icon(Icons.delete, color: Colors.red),
+                          ),
                         ),
-                        IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () async {
-                              return showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Edit_Dialog_box(this.index);
-                                  });
-                            }),
+                        VerticalDivider(
+                          width: 5.0,
+                          thickness: 5.0,
+                          color: Colors.black,
+                        ),
+                        CircleAvatar(
+                          radius: 21,
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.check,
+                                color: todo1.status ? Colors.green : Colors.red,
+                              ),
+                              onPressed: () {
+                                todo1.status = !todo1.status;
+                                todosbox.putAt(index, todo1);
+                                data.add_todo();
+                              }),
+                        )
                       ]),
                 ),
               ],

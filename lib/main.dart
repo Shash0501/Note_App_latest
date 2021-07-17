@@ -8,6 +8,7 @@ import 'package:note_app_latest/models/todo.dart';
 import 'package:note_app_latest/providers/note_tile.dart';
 import 'package:note_app_latest/providers/todo_tile.dart';
 import 'package:note_app_latest/screens/splash_screen.dart';
+import 'package:note_app_latest/screens/todo_page.dart';
 //import path_provider as path_provider
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:note_app_latest/screens/Homepage.dart';

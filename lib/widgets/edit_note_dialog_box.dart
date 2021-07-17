@@ -16,6 +16,7 @@ class _Edit_Dialog_boxState extends State<Edit_Dialog_box> {
   int index;
   _Edit_Dialog_boxState(this.index);
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
   final notesbox = Hive.box("notes");
   notes note1 =
       notes(title: "Sample Note", description: "This is a sample note");
@@ -23,8 +24,16 @@ class _Edit_Dialog_boxState extends State<Edit_Dialog_box> {
   Widget build(BuildContext context) {
     final TextEditingController Note_title = TextEditingController();
     final TextEditingController Note_description = TextEditingController();
-
     return Consumer<Note_tile>(builder: (context, data, _) {
+      void temp_func(String a, String b) {
+        notes n1 = notes(title: a, description: b);
+        notesbox.putAt(index, n1);
+        data.add_note();
+        //notesbox.add(n1);
+        //data.add_note();
+        Navigator.pop(context);
+      }
+
       return Container(
           child: AlertDialog(
         shape: RoundedRectangleBorder(
@@ -60,16 +69,19 @@ class _Edit_Dialog_boxState extends State<Edit_Dialog_box> {
         actions: <Widget>[
           TextButton(
               onPressed: () => {
-                    setState(() {
-                      if (true) {
-                        notes n1 = notes(
-                            title: Note_title.text,
-                            description: Note_description.text);
-                        //notesbox.putAt(index, n1);
-                        data.edit_note(index, n1);
-                        Navigator.pop(context);
+                    if (true)
+                      {
+                        setState(() {
+                          notes n1 = notes(
+                              title: Note_title.text,
+                              description: Note_description.text);
+                          //notesbox.add(n1);
+                          data.edit_note(index, n1);
+                          Navigator.pop(context);
+                        }),
+                        // notesbox.add(n1);
+                        // data.add_note();
                       }
-                    })
                   },
               child: Text("ADD")),
           TextButton(

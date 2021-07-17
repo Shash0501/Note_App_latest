@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:note_app_latest/models/note.dart';
 import 'package:note_app_latest/providers/note_tile.dart';
-import 'package:note_app_latest/screens/todo_screen.dart';
+import 'package:note_app_latest/screens/todo_page.dart';
 import 'package:note_app_latest/widgets/list_card_note.dart';
 //import path_provider as path_provider
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -78,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => todo_page()));
+                              builder: (BuildContext context) => todo_page(
+                                    Status1: 0,
+                                  )));
                     }),
                 Divider(), // add a line
                 ListTile(
