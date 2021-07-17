@@ -31,13 +31,14 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context, data, _) {
         return Scaffold(
           appBar: AppBar(
-              centerTitle: true,
-              title: Text('NOTES',
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0))),
+            centerTitle: true,
+            title: Text('NOTES',
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2.0)),
+          ),
           drawer: Drawer(
             child: Column(
               children: <Widget>[
@@ -101,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
               //floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
               child: Icon(Icons.add),
               onPressed: () async {
-                print("hello friends");
                 return showDialog(
                     context: context,
                     builder: (context) {

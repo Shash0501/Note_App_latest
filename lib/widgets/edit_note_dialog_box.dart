@@ -5,14 +5,16 @@ import 'package:note_app_latest/screens/Homepage.dart';
 import 'package:note_app_latest/providers/note_tile.dart';
 import 'package:provider/provider.dart';
 
-class Dialog_box extends StatefulWidget {
-  Dialog_box({Key? key}) : super(key: key);
-
+class Edit_Dialog_box extends StatefulWidget {
+  int index;
+  Edit_Dialog_box(this.index);
   @override
-  _Dialog_boxState createState() => _Dialog_boxState();
+  _Edit_Dialog_boxState createState() => _Edit_Dialog_boxState(this.index);
 }
 
-class _Dialog_boxState extends State<Dialog_box> {
+class _Edit_Dialog_boxState extends State<Edit_Dialog_box> {
+  int index;
+  _Edit_Dialog_boxState(this.index);
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final notesbox = Hive.box("notes");
   notes note1 =
@@ -28,7 +30,7 @@ class _Dialog_boxState extends State<Dialog_box> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
-        title: Text("ADD"),
+        title: Text("EDIT"),
         content: Form(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -63,8 +65,8 @@ class _Dialog_boxState extends State<Dialog_box> {
                         notes n1 = notes(
                             title: Note_title.text,
                             description: Note_description.text);
-                        notesbox.add(n1);
-                        data.add_note();
+                        //notesbox.putAt(index, n1);
+                        data.edit_note(index, n1);
                         Navigator.pop(context);
                       }
                     })

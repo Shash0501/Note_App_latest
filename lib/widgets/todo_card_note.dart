@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:note_app_latest/providers/note_tile.dart';
-import 'package:note_app_latest/models/note.dart';
+import 'package:note_app_latest/providers/todo_tile.dart';
+import 'package:note_app_latest/models/todo.dart';
 import 'package:note_app_latest/screens/Note_Screen.dart';
 import 'package:provider/provider.dart';
 
 import 'edit_note_dialog_box.dart';
 
-class note_tile extends StatefulWidget {
-  late notes note1;
+class todo_tile extends StatefulWidget {
+  late todos note1;
   late int index;
-  note_tile({required this.note1, required this.index});
+  todo_tile({required this.note1, required this.index});
 
   @override
-  _note_tileState createState() => _note_tileState(note1: note1, index: index);
+  _todo_tileState createState() => _todo_tileState(note1: note1, index: index);
 }
 
-class _note_tileState extends State<note_tile> {
-  late notes note1;
+class _todo_tileState extends State<todo_tile> {
+  late todos note1;
   late int index;
-  _note_tileState({required this.note1, required this.index});
+  _todo_tileState({required this.note1, required this.index});
   @override
   Widget build(BuildContext context) {
     String temp = (note1.description.length > 25)
         ? note1.description.substring(0, 25) + '...'
         : note1.description;
 
-    return Consumer<Note_tile>(builder: (context, data, _) {
+    return Consumer<Todo_tile>(builder: (context, data, _) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

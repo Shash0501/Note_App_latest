@@ -8,7 +8,7 @@ var dateParse = DateTime.parse(date);
 
 var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class todos {
   @HiveField(0)
   late String title;
