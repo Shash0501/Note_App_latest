@@ -15,8 +15,10 @@ class todos {
   @HiveField(1)
   late String description;
   @HiveField(2)
-  late String date = formattedDate;
+  late String date = date;
   @HiveField(3)
   late bool status = false;
+  // @HiveField(4)
+  // late String dueDate = date;
   todos({required this.title, required this.description});
 }

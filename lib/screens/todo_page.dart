@@ -5,7 +5,7 @@ import 'package:note_app_latest/models/todo.dart';
 import 'package:note_app_latest/providers/todo_tile.dart';
 import 'package:note_app_latest/screens/Homepage.dart';
 import 'package:note_app_latest/screens/todo_page.dart';
-import 'package:note_app_latest/widgets/Add_dialog_box%20copy.dart';
+import 'package:note_app_latest/widgets/Add_dialog_box_todo.dart';
 import 'package:note_app_latest/widgets/MenuItems.dart';
 //import 'package:note_app_latest/widgets/menuitems.dart';
 import 'package:note_app_latest/widgets/menuitems_class.dart';

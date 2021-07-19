@@ -4,7 +4,6 @@ import 'package:note_app_latest/providers/todo_tile.dart';
 import 'package:note_app_latest/models/todo.dart';
 import 'package:note_app_latest/screens/Note_Screen.dart';
 import 'package:provider/provider.dart';
-
 import 'edit_note_dialog_box.dart';
 
 class todo_tile extends StatefulWidget {
@@ -26,7 +25,14 @@ class _todo_tileState extends State<todo_tile> {
     String temp = (todo1.description.length > 25)
         ? todo1.description.substring(0, 25) + '...'
         : todo1.description;
-
+    int c = int.parse(todo1.date.substring(0, 2)) -
+        int.parse(DateTime.now().toString().substring(0, 2)) +
+        1;
+    int k = c > 0
+        ? 1
+        : (c < 0)
+            ? -1
+            : 0;
     return Consumer<Todo_tile>(builder: (context, data, _) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -72,7 +78,12 @@ class _todo_tileState extends State<todo_tile> {
                         SizedBox(
                           height: 2.0,
                         ),
-                        Text("${todo1.date}",
+                        Text(
+                            k == 1
+                                ? "Due in ${c} days"
+                                : k == -1
+                                    ? "Delayed by ${-1 * c} days"
+                                    : "Due today",
                             style: TextStyle(color: Colors.black)),
                         //Text("${todo1.status}"),
                       ],

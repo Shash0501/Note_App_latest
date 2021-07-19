@@ -35,9 +35,11 @@ class _note_screenState extends State<note_screen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
+              Text(title1, style: TextStyle(fontSize: 18)),
+              Divider(),
               Text(description, style: TextStyle(fontSize: 18)),
               Divider(),
-              Text(date)
+              Text("Due Date $date")
             ],
           ),
         ));
